@@ -67,9 +67,12 @@ jobs:
             -input=false \
             -no-color \
             -detailed-exitcode
+            echo "plan_exitcode=$plan_exitcode"
+            echo "TF_PLAN_EXITCODE=$plan_exitcode" >> $GITHUB_ENV
       
-      - name: Terraform plan exitcode
-        run: echo ${{ steps.plan.outputs.exitcode }}
+        - name: Set outputs
+          run: echo "TF_PLAN_EXITCODE=${{ env.TF_PLAN_EXITCODE }}"  # これが必要です
+          shell: bash
       
       - name: Slack notify
         uses: slackapi/slack-github-action@v1.24.0
