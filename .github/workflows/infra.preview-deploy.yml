@@ -37,7 +37,7 @@ jobs:
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          # terraform_wrapper: false
+          terraform_wrapper: false
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform format
