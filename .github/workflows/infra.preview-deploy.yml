@@ -28,20 +28,16 @@ jobs:
   preview:
     name: "Preview"
     runs-on: ubuntu-latest
-    env:
-      TF_PLAN_EXITCODE: ""
+    outputs:
+      TF_PLAN_EXITCODE: ${{ steps.plan.outputs.exitcode }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set TF_ENVIRONMENT
-        run: echo "TF_ENVIRONMENT=${{ env.TF_ENVIRONMENT }}" >> $GITHUB_ENV
-        shell: bash
-
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_wrapper: false
+          # terraform_wrapper: false
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform format
@@ -71,12 +67,6 @@ jobs:
             -input=false \
             -no-color \
             -detailed-exitcode
-          echo "plan_exitcode=$?"
-          echo "TF_PLAN_EXITCODE=$?" >> $GITHUB_ENV
-      
-      - name: Set TF_PLAN_EXITCODE
-        run: echo "TF_PLAN_EXITCODE=$?" >> $GITHUB_ENV
-        shell: bash
 
       - name: Slack notify
         uses: slackapi/slack-github-action@v1.24.0
@@ -112,16 +102,12 @@ jobs:
   deploy:
     name: "Deploy"
     needs: preview
-    if: ${{ needs.preview.outputs.TF_PLAN_EXITCODE == '2' }}
+    if: needs.preview.outputs.TF_PLAN_EXITCODE == 2
     environment: production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set TF_ENVIRONMENT for deploy
-        run: echo "TF_ENVIRONMENT=${{ needs.preview.outputs.TF_ENVIRONMENT }}" >> $GITHUB_ENV
-        shell: bash
 
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v3
@@ -140,3 +126,4 @@ jobs:
 
       - name: Terraform init
         run: terraform init -no-color
+
