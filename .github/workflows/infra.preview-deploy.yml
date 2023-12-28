@@ -67,6 +67,7 @@ jobs:
             -input=false \
             -no-color \
             -detailed-exitcode
+          echo "plan_exitcode=$?"
       
       - name: outputs TF_PLAN_EXITCODE
         run: echo ${{ steps.plan.outputs.exitcode }}
