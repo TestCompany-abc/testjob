@@ -67,8 +67,8 @@ jobs:
             -input=false \
             -no-color \
             -detailed-exitcode
-            echo "plan_exitcode=$plan_exitcode"
-            echo "TF_PLAN_EXITCODE=$plan_exitcode" >> $GITHUB_ENV
+          echo "plan_exitcode=$plan_exitcode"
+          echo "TF_PLAN_EXITCODE=$plan_exitcode" >> $GITHUB_ENV
       
         - name: Set outputs
           run: echo "TF_PLAN_EXITCODE=${{ env.TF_PLAN_EXITCODE }}"  # これが必要です
