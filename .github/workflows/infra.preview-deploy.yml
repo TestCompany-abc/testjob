@@ -37,7 +37,7 @@ jobs:
       - name: Setup terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_wrapper: false
+          # terraform_wrapper: false
           terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform format
@@ -67,10 +67,6 @@ jobs:
             -input=false \
             -no-color \
             -detailed-exitcode
-          echo "plan_exitcode=$?"
-      
-      - name: outputs TF_PLAN_EXITCODE
-        run: echo ${{ steps.plan.outputs.exitcode }}
       
       - name: Slack notify
         uses: slackapi/slack-github-action@v1.24.0
