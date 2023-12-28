@@ -70,9 +70,9 @@ jobs:
           echo "plan_exitcode=$plan_exitcode"
           echo "TF_PLAN_EXITCODE=$plan_exitcode" >> $GITHUB_ENV
       
-        - name: Set outputs
-          run: echo "TF_PLAN_EXITCODE=${{ env.TF_PLAN_EXITCODE }}"  # これが必要です
-          shell: bash
+      - name: Set outputs
+        run: echo "TF_PLAN_EXITCODE=${{ env.TF_PLAN_EXITCODE }}"  # これが必要です
+        shell: bash
       
       - name: Slack notify
         uses: slackapi/slack-github-action@v1.24.0
