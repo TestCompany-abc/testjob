@@ -69,7 +69,7 @@ jobs:
             -detailed-exitcode
       
       - name: outputs TF_PLAN_EXITCODE
-        run: echo "${{ steps.plan.outputs.exitcode }}"
+        run: echo "TF_PLAN_EXITCODE=${{ steps.plan.outputs.exitcode }}" >> $GITHUB_ENV
       
       - name: Slack notify
         uses: slackapi/slack-github-action@v1.24.0
