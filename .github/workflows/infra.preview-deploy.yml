@@ -68,6 +68,9 @@ jobs:
             -no-color \
             -detailed-exitcode
       
+      - name: Terraform plan exitcode
+        run: echo ${{ steps.plan.outputs.exitcode }}
+      
       - name: Slack notify
         uses: slackapi/slack-github-action@v1.24.0
         with:
