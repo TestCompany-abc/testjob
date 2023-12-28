@@ -19,18 +19,18 @@ jobs:
                 {
                   "blocks": [
                     {
-                      "type": "section",
-                      "text": {
-                        "type": "mrkdwn",
-                        "text": "Hello world :ghost"
-                      }
-                    },
-                    {
                       "type": "header",
                       "text": {
                         "type": "plain_text",
                         "text": "Message Header",
                         "emoji": true
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "Hello world :ghost:"
                       }
                     }
                   ]
